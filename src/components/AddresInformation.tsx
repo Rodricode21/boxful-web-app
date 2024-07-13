@@ -10,6 +10,7 @@ import NextButton from "./common/NextButton";
 import { FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
 import dayjs from "dayjs";
+import { DeparmanetosSelect } from "./Deparmentos";
 
 interface PropsType {
   setIsStepComplete: React.Dispatch<React.SetStateAction<boolean>>;
@@ -51,12 +52,15 @@ const AddressInformation = ({ setIsStepComplete }: PropsType) => {
   const formik = useFormik({
     initialValues,
     validationSchema,
+
     enableReinitialize: true,
     onSubmit: async (values) => {
       console.log(values);
       setIsStepComplete(true);
     },
   });
+
+  const { setFieldValue } = formik;
 
   return (
     <FormikProvider value={formik}>
@@ -177,28 +181,22 @@ const AddressInformation = ({ setIsStepComplete }: PropsType) => {
             </FormField>
           </Box>
           <Box sx={InputsContainer("1fr 1fr 1fr")}>
-            <FormField label="Departamento" required id="Departamento">
-              <TextField
-                name="departamento"
-                value={formik.values.departamento}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={
-                  formik.touched.departamento &&
-                  Boolean(formik.errors.departamento)
-                }
-                helperText={
-                  formik.touched.departamento && formik.errors.departamento
-                }
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <RoomIcon />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </FormField>
+            <DeparmanetosSelect
+              inputStartAdornment={<RoomIcon color="disabled" />}
+              id="departamentos-type"
+              value={formik.values.departamento}
+              required
+              onChange={(selectedValue) => {
+                console.log(selectedValue);
+                setFieldValue("departamento", selectedValue);
+              }}
+              error={
+                formik.errors.departamento && formik.errors.departamento
+                  ? formik.errors.departamento
+                  : " "
+              }
+            />
+
             <FormField label="Municipio" required id="municipio">
               <TextField
                 name="municipio"

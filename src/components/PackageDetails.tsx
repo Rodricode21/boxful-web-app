@@ -50,11 +50,12 @@ const initialValues: FormValues = {
   },
   packages: [
     {
-      length: "",
-      width: "",
-      height: "",
-      weight: "",
-      content: "",
+      length: "22",
+      width: "22",
+      height: "22",
+      weight: "22",
+      content:
+        "este es un ejemplo de prueba de como deberias estar definido tu paquete",
     },
   ],
 };
@@ -263,7 +264,6 @@ const PackageDetails = () => {
                     <Box display={"flex"}>
                       <FormField label="Largo" id={"largo"}>
                         <TextField
-                          disabled={true}
                           sx={{
                             backgroundColor: "white",
                             "& .MuiFormHelperText-root": {
@@ -290,7 +290,6 @@ const PackageDetails = () => {
 
                       <FormField label="Alto" id="alto">
                         <TextField
-                          disabled={true}
                           sx={{
                             backgroundColor: "white",
                             "& .MuiFormHelperText-root": {
@@ -318,7 +317,6 @@ const PackageDetails = () => {
 
                       <FormField label="Ancho" id="ancho">
                         <TextField
-                          disabled={true}
                           name={`packages[${index}].width`}
                           sx={{
                             backgroundColor: "white",
@@ -347,7 +345,6 @@ const PackageDetails = () => {
 
                     <FormField label="Peso en libras " id="peso">
                       <TextField
-                        disabled={true}
                         name={`packages[${index}].weight`}
                         sx={{
                           backgroundColor: "white",
@@ -374,7 +371,6 @@ const PackageDetails = () => {
                     </FormField>
                     <FormField label="Contenido" id="contenido">
                       <TextField
-                        disabled={true}
                         name={`packages[${index}].content`}
                         sx={{
                           backgroundColor: "white",
