@@ -23,7 +23,7 @@ const buttonStyles: SxProps = {
 
 const NextButton: React.FC<NextButtonProps> = ({ text }) => {
   return (
-    <Button sx={buttonStyles}>
+    <Button sx={buttonStyles} type="submit">
       {text}
       <ArrowForwardIcon />
     </Button>

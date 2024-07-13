@@ -1,43 +1,24 @@
 import AddressInformation from "@/components/AddresInformation";
-import React from "react";
+import OrderWrapper from "@/components/OrderWrapper";
+import PackageDetails from "@/components/PackageDetails";
+import useMultipleStepForm from "@/hooks/useMultipleStepForm";
+import { Box } from "@mui/material";
+import React, { useEffect, useState } from "react";
 
 const index = () => {
-  return <AddressInformation />;
+  const [stepComplete, setIsStepComplete] = useState(false);
+
+  const { step, next } = useMultipleStepForm([
+    <AddressInformation key={0} setIsStepComplete={setIsStepComplete} />,
+    <PackageDetails key={1} />,
+  ]);
+
+  useEffect(() => {
+    if (stepComplete) {
+      next();
+    }
+  }, [stepComplete, next]);
+  return <Box>{step}</Box>;
 };
 
 export default index;
-
-// "use client";
-// import VerificatioCode from "@/components/VerificationCode";
-// import useMultistepForm from "@/hooks/useMultipleStepForm";
-// import { Box } from "@mui/system";
-// import { useSearchParams } from "next/navigation";
-// import { useEffect, useState } from "react";
-// import SignupInformation from "./SignupInformation";
-
-// const SignUpMultiStep = () => {
-//   const [stepComplete, setIsStepComplete] = useState(false);
-//   const [email, setEmail] = useState("");
-//   const [code, setCode] = useState("");
-//   const searchParams = useSearchParams();
-
-//   const { step, next } = useMultistepForm([
-//     <SignupInformation
-//       key={0}
-//       setIsStepComplete={setIsStepComplete}
-//       setEmail={setEmail}
-//       setCode={setCode}
-//     />,
-//     <VerificatioCode key={1} email={email} code={code} />,
-//   ]);
-
-//   useEffect(() => {
-//     if (stepComplete) {
-//       next();
-//     }
-//   }, [stepComplete, next]);
-
-//   return <Box>{step}</Box>;
-// };
-
-// export default SignUpMultiStep;
