@@ -79,7 +79,6 @@ const PackageDetails = ({ setBackStep }: PropsType) => {
           toast.success("Se ha enviado su paquete de manera exitosa");
         }
       } catch (error) {
-        console.error(error);
         toast.error("Hubo un error al enviar su paquete");
       }
     },
@@ -101,8 +100,6 @@ const PackageDetails = ({ setBackStep }: PropsType) => {
       content: "",
     });
   };
-
-  console.log(errors.packages);
 
   return (
     <OrderWrapper>

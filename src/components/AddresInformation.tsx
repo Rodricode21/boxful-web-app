@@ -54,7 +54,6 @@ const AddressInformation = ({ setIsStepComplete }: PropsType) => {
 
     enableReinitialize: true,
     onSubmit: async (values) => {
-      console.log(values);
       setIsStepComplete(true);
     },
   });
@@ -186,7 +185,6 @@ const AddressInformation = ({ setIsStepComplete }: PropsType) => {
               value={formik.values.departamento}
               required
               onChange={(selectedValue) => {
-                console.log(selectedValue);
                 setFieldValue("departamento", selectedValue);
               }}
               error={
