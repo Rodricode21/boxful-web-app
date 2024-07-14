@@ -8,6 +8,13 @@ import { TextField } from "./common/TextField";
 import { FormField } from "./FormField";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Package from "@/FetchActions/Package";
+import toast from "react-hot-toast";
+import NextButton from "./common/NextButton";
+
+interface PropsType {
+  setBackStep: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const packageSchema = Yup.object().shape({
   length: Yup.number().required("Largo es requerido"),
@@ -60,24 +67,26 @@ const initialValues: FormValues = {
   ],
 };
 
-const PackageDetails = () => {
+const PackageDetails = ({ setBackStep }: PropsType) => {
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      console.log(values);
+      const { packages } = values;
+      try {
+        const response = await Package.createPackage(packages);
+        if (response.data.success) {
+          toast.success("Se ha enviado su paquete de manera exitosa");
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error("Hubo un error al enviar su paquete");
+      }
     },
   });
 
-  const {
-    values,
-    errors,
-    touched,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    validateForm,
-  } = formik;
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    formik;
 
   const handleAddPackage = () => {
     const newPackage = formik.values.newPackage;
@@ -410,7 +419,15 @@ const PackageDetails = () => {
               </Box>
             )}
           </FieldArray>
-          <Button type="submit">Siguiente</Button>
+          <Box
+            display={"flex"}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+            marginTop={"20px"}
+          >
+            <Button onClick={() => setBackStep(true)}>atras</Button>
+            <NextButton text="Enviar" />
+          </Box>
         </form>
       </FormikProvider>
     </OrderWrapper>
